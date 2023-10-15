@@ -106,14 +106,14 @@
           "field": "subscribers",
           "type": "quantitative",
           "title": "Subscribers",
-          "format": ".2s"
+          "format": ","
        
         },
         {
           "field": "highest_yearly_earnings",
           "type": "quantitative",
           "title": "Highest Yearly Earnings",
-          "format": ".2s"
+          "format": ","
        
         }
       ]
