@@ -38,8 +38,7 @@
       "tooltip": [
         {"field": "channel_type", "type": "nominal", "title": "Channel Type"},
         {"field": "key", "type": "nominal", "title": "Earnings Type"},
-        {"field": "average_earnings", "type": "quantitative", "title": "Average Earnings"}
+        {"field": "average_earnings", "type": "quantitative", "title": "Average Earnings","format":","}
       ]
     }
   }
-  
