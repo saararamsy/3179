@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><u>YouTube Data Visualizations (2023)</u></title>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+    <!-- Import pure.css -->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+        integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            text-align: center;
+            background-color: rgb(255, 230, 232); /* Changed background to black */
+            color: rgb(255, 255, 255); /* Changed text color to white */
+        }
+
+        .visualization {
+    margin: 40px 0;
+    background-color: #c74747; /* Neutral background color for the card */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1); /* Shadow effect for depth */
+}
+
+        .visualization:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 7px 20px rgba(247, 243, 243, 0.12);
+}
+
+
+        
+
+        h1 {
+          font-family: 'Georgia', sans-serif;
+            color: #db0e29; /* Different color for headings */
+            font-weight: bold;
+        }
+        h2 {
+          font-family: 'Roboto', sans-serif;
+            color: #db0e29; /* Different color for headings */
+            font-weight: bold;
+        }
+        i {
+        font-family: 'Georgia', sans-serif;
+        font-size: 1.2em;
+        
+      }
+
+        p {
+            color: #502e2e;
+            max-width: 800px;
+            margin: 10px auto;
+        }
+
+        .highlight {
+            font-weight: bold; /* Bold for emphasized text */
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page">
+
+        <!-- pure grid group -->
+        <div class="pure-g">
+            <div class="pure-u-1-1">
+                <h1><u>Global YouTube Statistics 2023</u></h1>
+                <p><i>Welcome to a visual exploration of YouTube's impressive statistics for the year 2023. </i></p>
+            </div>
+        </div>
+        <!-- end pure grid group -->
+
+
+
+
+    <!-- pure grid group -->
+<div class="pure-g">
+  <div class="pure-u-1-1">
+    <!-- <h2>YouTube Video Views and Subscribers by Country </h2> -->
+      <p>Gain perspective on the global reach of YouTube as we depict subscribers from diverse corners of the world. <span class="highlight">Which country do you think has the most YouTube enthusiasts?</span></p>
+  </div>
+</div>
+
+
+<!-- end pure grid group -->
+<!-- pure grid group for the map description -->
+<!--<div class="pure-g">
+  <div class="pure-u-1-1">
+      <p>Dive into a vivid visualization of <b>YouTube's remarkable statistics for 2023</b>. In this year, **Cuba and Mexico** ascend as dominant forces in the realm of YouTube, each showcasing an exceptional number of **subscribers and video views**. As you navigate through the colorful map, you'll notice that the **Asian region**, particularly countries like **India and China**, pulsate with a high volume of video views, reflecting their voracious appetite for content.</p>
+      
+      <p>Furthermore, countries like **Brazil and Russia** are not far behind, adding to the vibrant mosaic of YouTube enthusiasts globally. This representation not only elucidates the prevailing countries in terms of **subscribers and views** but also emphasizes the ever-growing influence of **YouTube as a digital titan**. Indeed, the map paints a picture of a world deeply engrossed and influenced by YouTube's vast content ocean.</p>
+  </div>
+</div> -->
+<!-- end pure grid group -->
+
+
+<div class="pure-g">
+  <div class="pure-u-1-1">
+      <div class="visualization" id="choropleth-map"></div>
+  </div>
+</div>
+
+        <!-- end pure grid group -->
+    <!-- pure grid group for the map description -->
+    <div class="pure-g">
+     <div class="pure-u-1-1">
+          <p>In this year, <b>Cuba and Mexico</b> ascend as dominant forces in the realm of YouTube, each showcasing an exceptional number of <b>subscribers and video views</b>. As you navigate through the colorful map, you'll notice that the <b>Asian region</b>, particularly countries like <b>India and China</b>, pulsate with a high volume of video views, reflecting their voracious appetite for content.</p>
+      
+      </div>
+    </div>
+    <!-- end pure grid group -->
+
+
+
+    <div class="pure-g">
+      <!-- First visualization and its description (on the left) -->
+      <div class="pure-u-1-2">
+          <div class="pure-g">  <!-- Nested grid -->
+              <!-- Visualization -->
+              <div class="pure-u-1-1">
+                <h2>Number of YouTube channels created by Year</h2>
+                  <div class="visualization" id="line-chart"></div>
+              </div>
+              <!-- Description -->
+              <div class="pure-u-1-1">
+                  <div class="description description-right">
+          
+                      <p>The <b>Line chart</b> shows how <b>YouTube channel creation</b> has changed since its start in <b>2005</b>. Initially, there's a steady rise in new channels, with a <b>big spike</b> in <b>2011</b>. Another increase happens in <b>2013</b>. However, after <b>2016</b>, there's a clear <b>drop</b> in new channels, reaching its lowest in 2022. This could suggest that YouTube saw its <b>biggest growth</b> in the <b>early 2010s</b>, and recent years show a <b>decline</b> in new creators joining the platform.</p>
+                      <br>
+                      <br>
+                  </div>
+              </div>
+          </div>  <!-- End of nested grid -->
+      </div>
+  
+      <!-- Second visualization and its description (on the right) -->
+      <div class="pure-u-1-2">
+          <div class="pure-g">  <!-- Nested grid -->
+              <!-- Description -->
+              <div class="pure-u-1-1">
+                  <div class="description description-left">
+                      <h2>Distribution of Channel Types</h2>
+                      <p>The <b> Radial chart</b> visualizes the <b>top six categories</b> of YouTube channels by count.<b>Entertainment</b> holds a clear lead, with categories like <b>Film, Games, Music, People,</b> and <b>Unknown</b> following behind. It gives a snapshot of the most prevalent channel types on YouTube.</p>
+                  </div>
+              </div>
+              <!-- Visualization -->
+              <div class="pure-u-1-1">
+                  <div class="visualization" id="radial-chart"></div>
+              </div>
+          </div>  <!-- End of nested grid -->
+      </div>
+  </div> <!-- End of main grid group -->
+  
+
+        <!-- pure grid group -->
+        <div class="pure-g">
+            <div class="pure-u-1-1">
+                <div class="description description-left">
+                    <h2>YouTube Statistics Bubble Chart</h2>
+                    <p>This meticulously crafted <b>Bubble chart</b> presents a <b>correlation</b> between <b>video views</b> and the number of <b>subscribers</b>.A noteworthy feature is the <b>bubble size</b>, indicative of a channel's potential earnings.</p> 
+                </div>
+            </div>
+            <div class="pure-u-1-1">
+                <div class="visualization" id="bubble-chart"></div>
+            </div>
+        </div>
+
+        
+        <!-- end pure grid group -->
+
+            <!-- pure grid group for the bubble chart description -->
+    <div class="pure-g">
+      <div class="pure-u-1-1">
+          <p>We can adjust the <b>Highest Yearly Earnings</b> slider to discern the nuances in earnings.</p><p> For a more tailored insight, we can select from the <b>curated top five categories.</b></p>
+      </div>
+  </div>
+  <!-- end pure grid group -->
+ <br>
+ <br>
+<!-- pure grid group -->
+<div class="pure-g">
+  <!-- Left Section -->
+  <div class="pure-u-1-2">
+    <h2>Top 10 YouTube Channels by Subscribers</h2>
+    
+    <div class="description-container" style="display: flex; align-items: center;">
+      <div class="description description-right">
+        <p>Displayed as a horizontal <b> Bar graph</b>, this chart showcases the <b>ten leading YouTube channels</b> by subscriber count. Channels such as <b>T-Series, MrBeast, Cocomelon,</b> and <b>SET India</b> prominently stand out, with their subscriber counts stretching far along the horizontal axis. 
+          The chart offers a straightforward glimpse of the <b>digital behemoths</b> in the YouTube realm, 
+          emphasizing their <b>vast audiences.</b></p> 
+          <div class="visualization" id="bar-chart"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Section -->
+  <div class="pure-u-1-2">
+    <h2>Earnings Breakdown by Channel Type</h2>
+    <div class="visualization" id="earnings-chart"></div>
+    <div class="description description-right">
+      <p>A <b>striking observation</b> is the pronounced dominance of the 'Animals' category in terms of the <b>highest yearly earnings</b>, significantly <b>outpacing other genres</b>. This suggests that channels focused on animals have an <b>enormous potential for revenue generation</b>. On the other end, genres like <b>Comedy, Music,</b> and <b>People</b> also display <b>noteworthy earnings</b>, albeit with a more balanced distribution between their <b>highest and lowest yearly figures.</b></p>
+    </div>
+  </div>
+</div>
+<!-- end pure grid group -->
+<br>
+<br>       
+<p><i>Collectively, these visualizations not only celebrate the colossal impact of global content creators but also illuminate pathways for aspiring channels to strategize and thrive in this digital age.</i></p>
+
+
+
+    <script type="text/javascript">
+        var choroplethSpec = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "YouTube Video Views and Subscribers by Country ",
+  "width": 800,
+  "height": 400,
+  "projection": {"type": "equalEarth"},
+  "data": {
+    "url": "https://raw.githubusercontent.com/saararamsy/3179/main/ne_110m.json",
+    "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+  },
+  "transform": [
+    {
+      "lookup": "properties.NAME",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/saararamsy/3179/main/Cleaned_Global_YouTube_Statistic_2023.csv"
+        },
+        "key": "Country",
+        "fields": ["video views", "subscribers", "Latitude", "Longitude"]
+      }
+    }
+  ],
+  "layer": [
+    {
+      "mark": {"type": "geoshape"},
+      "encoding": {
+        "color": {
+          "field": "video views",
+          "type": "quantitative",
+          "title": "Number of Video Views",
+          "format": ".2s"}
+        },
+        "tooltip": [
+          {"field": "properties.NAME", "type": "nominal", "title": "Country"},
+          {"field": "video views", "type": "quantitative", "title": "Video Views","format": ".2s"},
+          {"field": "subscribers", "type": "quantitative", "title": "Subscribers","format": ".2s"}
+        ]
+      },
+    {
+      "mark": "circle",
+      "encoding": {
+        "longitude": {"field": "Longitude", "type": "quantitative"},
+        "latitude": {"field": "Latitude", "type": "quantitative"},
+        "size": {"field": "subscribers", "type": "quantitative", "title": "Subscribers"},
+        "color": {"value": "red"},
+        "opacity": {"value": 0.8},
+        "tooltip": [
+          {"field": "properties.NAME", "type": "nominal", "title": "Country"},
+          {"field": "subscribers", "type": "quantitative", "title": "Subscribers","format": ","}
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"Country": "India", "x": 82, "y": 25},
+          {"Country": "Brazil", "x": -53, "y": -10},
+          {"Country": "China", "x": 104, "y": 32},
+          {"Country": "Canada", "x": -106, "y": 60},
+          {"Country": "Australia", "x": 135, "y": -20},
+          {"Country": "Russia", "x": 92, "y": 60}
+        ]
+      },
+      "mark": "text",
+      "encoding": {
+        "longitude": {"field": "x", "type": "quantitative"},
+        "latitude": {"field": "y", "type": "quantitative"},
+        "text": {"field": "Country", "type": "nominal"},
+        "size": {"value": 10},
+        "fontWeight": {"value": "bold"}
+      }
+    }
+  ]
+}
+;
+
+        var bubbleChartSpec = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 500,
+  "height": 400,
+  "padding": {"left": 70, "top": 10, "right": 10, "bottom": 30},
+  
+  //"title": "YouTube Stats Bubble Chart (2023)",
+  "data": {
+    "url": "https://raw.githubusercontent.com/saararamsy/3179/main/Cleaned_Global_YouTube_Statistic_2023.csv"
+  },
+  "params": [
+    {
+      "name": "categorySelect",
+      "bind": {
+        "input": "select",
+        "options": [
+          null,
+          "Music",
+          "Entertainment",
+          "Education",
+          "Shows",
+          "People & Blogs"
+        ],
+        "labels": [
+          "Show All",
+          "Music",
+          "Entertainment",
+          "Education",
+          "Shows",
+          "People & Blogs"
+        ],
+        "name": "Category Selection: "
+      }
+    },
+    {
+      "name": "earningsFilter",
+      "bind": {
+        "input": "range",
+        "min": 10000,
+        "max": 25000000,
+        "step": 1000,
+        "name": " Highest Yearly Earnings "
+      }
+    }
+  ],
+  "transform": [
+    {
+      "filter": "categorySelect == null || datum.category == categorySelect"
+    },
+    {
+      "filter": "datum.category == 'Music' || datum.category == 'Entertainment' || datum.category == 'Education' || datum.category == 'Shows' || datum.category == 'People & Blogs'"
+    },
+    {
+      "filter": "datum.highest_yearly_earnings >= earningsFilter"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "video views",
+      "type": "quantitative",
+      "title": "Video Views",
+      //"axis": {"format": ".2s"}
+    },
+    "y": {
+      "field": "subscribers",
+      "type": "quantitative",
+      "title": "Subscribers",
+        "axis": {
+        "labelAngle": 0,
+        "tickCount": 10,
+        "format": ".2s"
+      }
+    },
+    "size": {
+      "field": "highest_yearly_earnings",
+      "type": "quantitative",
+      "title": "Highest Yearly Earnings"
+    },
+    "color": {
+      "field": "category",
+      "type": "nominal",
+      "title": "Category",
+      "legend": {
+        "title": "Category"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "Youtuber",
+        "type": "nominal",
+        "title": "YouTuber"
+      },
+      {
+        "field": "Country",
+        "type": "nominal",
+        "title": "Country"
+      },
+      {
+        "field": "video views",
+        "type": "quantitative",
+        "title": "Video Views",
+        "format": ","
+      },
+      {
+        "field": "subscribers",
+        "type": "quantitative",
+        "title": "Subscribers",
+        "format": ","
+     
+      },
+      {
+        "field": "highest_yearly_earnings",
+        "type": "quantitative",
+        "title": "Highest Yearly Earnings",
+        "format": ","
+     
+      }
+    ]
+  },
+  "mark": "circle"
+};
+
+
+        var radialChartSpec = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  //"title": "Distribution of Channel Types in Entertainment Category (2023)",
+  "data": {
+    "url": "https://raw.githubusercontent.com/saararamsy/3179/main/Cleaned_Global_YouTube_Statistic_2023.csv"
+  },
+  "transform": [
+    {"filter": "datum.category === 'Entertainment'"},
+    {
+      "aggregate": [{"op": "count", "as": "num_channels", "field": "Youtuber"}],
+      "groupby": ["channel_type"]
+    },
+    {"sort": [{"field": "num_channels", "order": "ascending"}]},
+    {"window": [{"op": "row_number", "as": "rank"}]},
+    {"filter": "datum.rank <= 6"}
+  ],
+  "layer": [
+    {
+      "mark": {"type": "arc", "innerRadius": 25, "stroke": "#fff"}
+    },
+    {
+      "mark": {"type": "text", "radiusOffset": 15},
+      "encoding": {
+        "text": {"field": "num_channels", "type": "quantitative"}
+      }
+    }
+  ],
+  "encoding": {
+    "theta": {
+      "field": "num_channels",
+      "type": "quantitative",
+      "stack": true
+    },
+    "radius": {
+      "field": "num_channels",
+      "scale": {"type": "sqrt", "zero": true, "rangeMin": 50}
+    },
+    "color": {
+      "field": "channel_type",
+      "type": "nominal",
+      "legend": {"title": "Channel Type"}
+    },
+    "tooltip": [
+      {
+        "field": "channel_type",
+        "type": "nominal",
+        "title": "Channel Type"
+      },
+      {
+        "field": "num_channels",
+        "type": "quantitative",
+        "title": "Number of Channels"
+      }
+    ]
+  }
+};
+
+        var barChartSpec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    //"title": "Top 10 YouTube Channels by Subscribers",
+    "data": {
+      "url": "https://raw.githubusercontent.com/saararamsy/3179/main/Cleaned_Global_YouTube_Statistic_2023.csv"
+    },
+    "transform": [
+      {"sort": [{"field": "subscribers", "order": "descending"}]},
+      {"window": [{"op": "row_number", "as": "row_number"}]},
+      {"filter": "datum.row_number <= 10"}
+    ],
+    "layer": [
+      {
+        "encoding": {
+          "y": {
+            "field": "Youtuber",
+            "type": "nominal",
+            "sort": "-x",
+            "axis": {"title": "YouTube Channel"}
+          },
+          "x": {
+            "field": "subscribers",
+            "type": "quantitative",
+            "axis": {"title": "Subscribers", "format": ".2s"}
+          },
+          "color": {
+            "value": "#DBA800"
+          },
+          "tooltip": [
+            {"field": "Youtuber", "type": "nominal", "title": "YouTuber"},
+            {"field": "subscribers", "type": "quantitative", "title": "Subscribers","format": ","},
+            {"field": "Country", "type": "nominal", "title": "Country"}
+          ]
+        },
+        "mark": {
+          "type": "bar",
+          "tooltip": true
+        }
+      },
+      {
+        "encoding": {
+          "y": {
+            "field": "Youtuber",
+            "type": "nominal"
+          },
+          "x": {
+            "field": "subscribers",
+            "type": "quantitative"
+          },
+          "text": {
+            "field": "subscribers",
+            "type": "quantitative",
+            "format": ".2s"
+          }
+        },
+        "mark": {
+          "type": "text",
+          "align": "right",
+          "baseline": "middle",
+          "dx": -4
+        }
+      }
+    ],
+    "config": {
+      "axis": {"grid": false}
+    }
+};
+
+            var lineChartSpec = {
+              
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  //"title": "Number of YouTube Channels Created by Year",
+  "data": {
+    "url": "https://raw.githubusercontent.com/saararamsy/3179/main/Cleaned_Global_YouTube_Statistic_2023.csv"
+  },
+  "transform": [
+    {
+      "aggregate": [{"op": "count", "field": "Youtuber", "as": "num_channels"}],
+      "groupby": ["created_year"]
+    },
+    {
+      "sort": [{"field": "created_year", "order": "ascending"}]
+    }
+  ],
+  "mark": "line",
+  "encoding": {
+    "x": {
+      "field": "created_year",
+      "type": "ordinal",
+      "title": "Year"
+    },
+    "y": {
+      "field": "num_channels",
+      "type": "quantitative",
+      "title": "Number of Channels Created"
+    },
+    "tooltip": [
+      {"field": "created_year", "type": "ordinal", "title": "Year"},
+      {"field": "num_channels", "type": "quantitative", "title": "Number of Channels Created"}
+    ]
+  }
+};
+            
+            var earningsChartSpec = {
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+            //"title": "Earnings by YouTube Channel Type",
+            "data": 
+            {
+                "url": "https://raw.githubusercontent.com/saararamsy/3179/main/Cleaned_Global_YouTube_Statistic_2023.csv"
+            },
+            "transform": [
+                {
+                    "fold": ["lowest_yearly_earnings", "highest_yearly_earnings", "lowest_monthly_earnings", "highest_monthly_earnings"]
+                },
+                {
+                    "aggregate": [{"op": "mean", "field": "value", "as": "average_earnings"}],
+                    "groupby": ["channel_type", "key"]
+                }
+            ],
+            "mark": "bar",
+            "encoding": {
+                "x": {
+                    "field": "channel_type",
+                    "type": "nominal",
+                    "title": "Channel Type"
+                },
+                "y": {
+                    "field": "average_earnings",
+                    "type": "quantitative",
+                    "title": "Average Earnings",
+                    "stack": "zero"
+                },
+                "color": {
+                    "field": "key",
+                    "type": "nominal",
+                    "title": "Earnings Type",
+                    "scale": {
+                        "domain": ["lowest_yearly_earnings", "highest_yearly_earnings", "lowest_monthly_earnings", "highest_monthly_earnings"],
+                        "range": ["#f78d6f", "#4f309b", "#f7c86f", "#4f8b5b"]
+                    }
+                },
+                "tooltip": [{"field": "channel_type", "type": "nominal", "title": "Channel Type"},
+                {"field": "key", "type": "nominal", "title": "Earnings Type"},
+                {"field": "average_earnings", "type": "quantitative", "title": "Average Earnings", "axis": {"format": ","}}
+            ]
+        }
+    };
+
+vegaEmbed('#choropleth-map', choroplethSpec);
+vegaEmbed('#bubble-chart', bubbleChartSpec);
+vegaEmbed('#radial-chart', radialChartSpec);
+vegaEmbed('#bar-chart', barChartSpec);
+vegaEmbed('#line-chart', lineChartSpec);
+vegaEmbed('#earnings-chart', earningsChartSpec);
+
+
+</script>
+
+</body>
+
+</html>
