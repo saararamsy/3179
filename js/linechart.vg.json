@@ -1,0 +1,35 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Number of YouTube Channels Created by Year",
+    "data": {
+      "url": "https://raw.githubusercontent.com/saararamsy/3179/main/Cleaned_Global_YouTube_Statistic_2023.csv"
+    },
+    "transform": [
+      {
+        "aggregate": [{"op": "count", "field": "Youtuber", "as": "num_channels"}],
+        "groupby": ["created_year"]
+      },
+      {
+        "sort": [{"field": "created_year", "order": "ascending"}]
+      }
+    ],
+    "mark": "line",
+    "encoding": {
+      "x": {
+        "field": "created_year",
+        "type": "ordinal",
+        "title": "Year"
+      },
+      "y": {
+        "field": "num_channels",
+        "type": "quantitative",
+        "title": "Number of Channels Created",
+        "axis": {"format": ".2s"}
+        
+      },
+      "tooltip": [
+        {"field": "created_year", "type": "ordinal", "title": "Year"},
+        {"field": "num_channels", "type": "quantitative", "title": "Number of Channels Created","format": ","}
+      ]
+    }
+  }

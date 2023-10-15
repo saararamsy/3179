@@ -1,0 +1,67 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Top 10 YouTube Channels by Subscribers",
+    "data": {
+      "url": "https://raw.githubusercontent.com/saararamsy/3179/main/Cleaned_Global_YouTube_Statistic_2023.csv"
+    },
+    "transform": [
+      {"sort": [{"field": "subscribers", "order": "descending"}]},
+      {"window": [{"op": "row_number", "as": "row_number"}]},
+      {"filter": "datum.row_number <= 10"}
+    ],
+    "layer": [
+      {
+        "encoding": {
+          "y": {
+            "field": "Youtuber",
+            "type": "nominal",
+            "sort": "-x",
+            "axis": {"title": "YouTube Channel"}
+          },
+          "x": {
+            "field": "subscribers",
+            "type": "quantitative",
+            "axis": {"title": "Subscribers", "format": ".2s"}
+          },
+          "color": {
+            "value": "#DBA800"
+          },
+          "tooltip": [
+            {"field": "Youtuber", "type": "nominal", "title": "YouTuber"},
+            {"field": "subscribers", "type": "quantitative", "title": "Subscribers"},
+            {"field": "Country", "type": "nominal", "title": "Country"}
+          ]
+        },
+        "mark": {
+          "type": "bar",
+          "tooltip": true
+        }
+      },
+      {
+        "encoding": {
+          "y": {
+            "field": "Youtuber",
+            "type": "nominal"
+          },
+          "x": {
+            "field": "subscribers",
+            "type": "quantitative"
+          },
+          "text": {
+            "field": "subscribers",
+            "type": "quantitative",
+            "format": ".2s"
+          }
+        },
+        "mark": {
+          "type": "text",
+          "align": "right",
+          "baseline": "middle",
+          "dx": -4
+        }
+      }
+    ],
+    "config": {
+      "axis": {"grid": false}
+    }
+}

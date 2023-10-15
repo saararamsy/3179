@@ -1,0 +1,45 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Earnings by YouTube Channel Type",
+    "data": {
+      "url": "https://raw.githubusercontent.com/saararamsy/3179/main/Cleaned_Global_YouTube_Statistic_2023.csv"
+    },
+    "transform": [
+      {
+        "fold": ["lowest_yearly_earnings", "highest_yearly_earnings", "lowest_monthly_earnings", "highest_monthly_earnings"]
+      },
+      {
+        "aggregate": [{"op": "mean", "field": "value", "as": "average_earnings"}],
+        "groupby": ["channel_type", "key"]
+      }
+    ],
+    "mark": "bar",
+    "encoding": {
+      "x": {
+        "field": "channel_type",
+        "type": "nominal",
+        "title": "Channel Type"
+      },
+      "y": {
+        "field": "average_earnings",
+        "type": "quantitative",
+        "title": "Average Earnings",
+        "stack": "zero"
+      },
+      "color": {
+        "field": "key",
+        "type": "nominal",
+        "title": "Earnings Type",
+        "scale": {
+          "domain": ["lowest_yearly_earnings", "highest_yearly_earnings", "lowest_monthly_earnings", "highest_monthly_earnings"],
+          "range": ["#f78d6f", "#4f309b", "#f7c86f", "#4f8b5b"]
+        }
+      },
+      "tooltip": [
+        {"field": "channel_type", "type": "nominal", "title": "Channel Type"},
+        {"field": "key", "type": "nominal", "title": "Earnings Type"},
+        {"field": "average_earnings", "type": "quantitative", "title": "Average Earnings"}
+      ]
+    }
+  }
+  

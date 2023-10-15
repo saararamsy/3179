@@ -1,0 +1,57 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Distribution of Channel Types in Entertainment Category (2023)",
+    "data": {
+      "url": "https://raw.githubusercontent.com/saararamsy/3179/main/Cleaned_Global_YouTube_Statistic_2023.csv"
+    },
+    "transform": [
+      {"filter": "datum.category === 'Entertainment'"},
+      {
+        "aggregate": [{"op": "count", "as": "num_channels", "field": "Youtuber"}],
+        "groupby": ["channel_type"]
+      },
+      {"sort": [{"field": "num_channels", "order": "descending"}]},
+      {"window": [{"op": "row_number", "as": "rank"}]},
+      {"filter": "datum.rank <= 6"}
+    ],
+    "layer": [
+      {
+        "mark": {"type": "arc", "innerRadius": 25, "stroke": "#fff"}
+      },
+      {
+        "mark": {"type": "text", "radiusOffset": 15},
+        "encoding": {
+          "text": {"field": "num_channels", "type": "quantitative"}
+        }
+      }
+    ],
+    "encoding": {
+      "theta": {
+        "field": "num_channels",
+        "type": "quantitative",
+        "stack": true
+      },
+      "radius": {
+        "field": "num_channels",
+        "scale": {"type": "sqrt", "zero": true, "rangeMin": 50}
+      },
+      "color": {
+        "field": "channel_type",
+        "type": "nominal",
+        "legend": {"title": "Channel Type"}
+      },
+      "tooltip": [
+        {
+          "field": "channel_type",
+          "type": "nominal",
+          "title": "Channel Type"
+        },
+        {
+          "field": "num_channels",
+          "type": "quantitative",
+          "title": "Number of Channels"
+        }
+      ]
+    }
+  }
+  
